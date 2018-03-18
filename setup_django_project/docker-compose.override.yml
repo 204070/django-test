@@ -1,0 +1,26 @@
+# docker-compose.override.yml
+
+version: '3.2'
+
+services:
+
+  web:
+    labels:
+      com.example.service: "web"
+      com.example.description: "Use for the main web process"
+    build:
+      context: ./APP_NAME/docker_compose/django/
+      dockerfile: Dockerfile
+    image: APP_NAME_web
+    depends_on:
+      - db
+    command: ["./docker_compose/django/wait_for_postgres.sh"]
+    ports:
+      - "8000:8000"
+    environment:
+      PRODUCTION: 'false'
+    logging:
+      driver: "json-file"
+    volumes:
+      - ./APP_NAME:/app
+     
