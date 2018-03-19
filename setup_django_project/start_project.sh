@@ -1,6 +1,16 @@
 #!/bin/bash
 
-APP_NAME=$1
+APP_NAME=""
+
+if [ $# -eq 0 ]; then
+  read -p 'Enter Project name: ' APP_NAME
+elif [ $# -eq 1 ]; then
+  APP_NAME=$1
+else
+  echo "Usage: cmd [APP_NAME]"
+  exit 1
+fi
+
 
 echo "=> Creating Application folder"
 mkdir "${APP_NAME}_project"
